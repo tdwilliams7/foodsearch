@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+    <title>Recipe Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" href="js/popper.min.js"></script>
+    <script type="text/javascript" href="js/bootstrap.min.js"></script> -->
+
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body class="container" ng-controller='recipeController'>
+    <div class='row'>
+        <div class="col-md-12">
+            <nav class="navbar sticky-top navbar-expand-md navbar-light ">
+                <div class="collapse navbar-collapse" id='navbarExpand'>
+                    <h3>Search Recipes</h3>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarExpand" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" id='navCollapseButton'></span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main body -->
+    <div class="row">
+        <!-- ingredients search -->
+        <div class="col-md-3">
+            <form>
+            <div class="row-fluid">
+                <div class="span12">
+                    <label for="sel1">Select a meat</label>
+                    <select class="form-control" id="proteinSelect">
+                      <option>chicken</option>
+                      <option>beef</option>
+                      <option>pork</option>
+                      <option>fish</option>
+                    </select>
+                <button type="submit" ng-click=recipeSearch()>Submit</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-1">
+            <!-- spacing -->
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class='col-md-12'><h4>Results</h4></div>
+                        <div class="card col-md-6" ng-repeat='recipe in recipes | limitTo:10'>
+                            <img class='img-fluid' ng-src="{{ recipe.image }}">
+                            <div class="card-block">
+                            <a href='{{recipe.url}}' target='_blank'><h5>{{ recipe.label }}</h5></a>
+                            <button ng-click=addRecipe(this) data='{{ recipe.uri }}'>Save for later</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <h4>Saved Recipes</h4>
+                <div class="card col-md-12" ng-repeat='recipe in myRecipes | limitTo:5'>
+                            <img class='img-fluid' ng-src="{{ recipe.image }}">
+                            <div class="card-block">
+                            <h5>{{ recipe.label }}</h5>
+                            <button ng-click=removeSavedRecipe(this)>Delete</button>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript" src='js/angular.min.js'></script>
+    <script type="text/javascript" src='js/core.js'></script>
+</body>
+</html>
