@@ -18,13 +18,11 @@ var myApp = angular.module('myApp',[]);
                     angular.forEach(recArr, function(recipeObj){
                         $scope.recipes.push(recipeObj.recipe);
                     });
-                    console.log($scope.recipes);
                 },  function(response){
                     console.log('nope');
                 });
 
         $scope.addRecipe = function($event){
-            console.log($event.recipe);
             $http.post('/myrecipes', $event.recipe)
                 .then( (data) =>{
                     alert('added');
@@ -36,10 +34,8 @@ var myApp = angular.module('myApp',[]);
         ($scope.recipeSearch = function(){
             let start = Math.round((Math.random() * 10 * Math.random() * 10));
             let end = start + 10;
-            console.log(start)
             let protein = document.getElementById('proteinSelect').value;
             let url = "https://api.edamam.com/search?q=" + protein +"&app_id=933b24e9&app_key=5ec51a21d4c001a6109da140caf5ecef&from=" + start + "&to=" + end;
-            console.log(url);
             $scope.recipes = [];
 
             $http({
@@ -51,7 +47,6 @@ var myApp = angular.module('myApp',[]);
                     angular.forEach(recArr, function(recipeObj){
                         $scope.recipes.push(recipeObj.recipe);
                     });
-                    console.log($scope.recipes);
                     angular.forEach( function(response){
                         $scope.names.push(response.data.hits.recipe);
                     });
@@ -64,7 +59,6 @@ var myApp = angular.module('myApp',[]);
             $http.get('/myrecipes')
                 .then(function(response){
                     $scope.myRecipes = response.data;
-                    console.log($scope.myRecipes);
                 }, function(data){
                     console.log(data);
                 });
